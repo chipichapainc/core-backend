@@ -1,9 +1,4 @@
-# NestJS Backend Core [Readme](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
-
-## TODO:
-- setup custom rules for eslint & prettier
-- deployment
-
+# NestJS Backend Core 
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
