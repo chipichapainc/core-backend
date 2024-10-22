@@ -1,0 +1,1 @@
+export const TICKET_HASH_LENGTH = 32 // NEEDS DB UPDATE
