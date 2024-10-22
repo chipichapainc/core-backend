@@ -1,5 +1,5 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
-import { DataSource, DataSourceOptions } from "typeorm";
+import { DataSource, DataSourceOptions, Logger } from "typeorm";
 import 'dotenv/config'
 
 export const dbConfig: TypeOrmModuleOptions = {
@@ -12,6 +12,8 @@ export const dbConfig: TypeOrmModuleOptions = {
   entities: [
     "dist/**/*.entity.js"
   ],
+  logger: "simple-console",
+  logging: false, // logs are in DB container or use - process.env.NODE_ENV !== "production"
   migrations: ['dist/db/migrations/*.js'],
   ssl: process.env.DATABASE_SSL === 'true',
   extra: {
@@ -23,7 +25,7 @@ export const dbConfig: TypeOrmModuleOptions = {
         : null,
   },
   synchronize: false,
-  migrationsRun: false,
+  migrationsRun: true,
 }
 
 export const connectionSource = new DataSource(dbConfig as DataSourceOptions);

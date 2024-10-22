@@ -17,5 +17,4 @@ COPY --chown=node:node --from=builder /build/dist ./dist
 COPY --chown=node:node --from=builder /build/node_modules ./node_modules
 COPY --chown=node:node --from=builder /build/package.json /build/.en[v] ./
 
-# Start the server using the production build
 CMD ["npm", "run", "start:prod"]
