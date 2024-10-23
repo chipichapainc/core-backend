@@ -13,3 +13,4 @@ docker compose up
 - setup custom rules for eslint & prettier
 - deployment
 - pass envs in ci/cd :3
+- db logs to file?
