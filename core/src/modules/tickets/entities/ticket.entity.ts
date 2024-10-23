@@ -21,13 +21,7 @@ export class TicketEntity {
 
   @Column({ type: "smallint", nullable: true })
   useMax: number;
-
-  // @ManyToOne(() => User)
-  // @JoinColumn({ name: 'userId' })
-  // user: User;
-  // @Column()
-  // userId: string;
-
+  
   // Timestamps
   @CreateDateColumn()
   createdAt: Date;
