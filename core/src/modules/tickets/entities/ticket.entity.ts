@@ -1,6 +1,3 @@
-import { TICKET_HASH_LENGTH } from 'src/configs/constants';
-import { TicketsCodeGeneratorProvider } from 'src/modules/code-generator/code-generator.provider';
-import { CryptoService } from 'src/modules/crypto/crypto.service';
 import { EventEntity } from 'src/modules/events/entities/event.entity';
 import {
   Column,

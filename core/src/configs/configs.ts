@@ -4,7 +4,7 @@ import { validateSync } from "class-validator";
 import { CryptoConfig } from "./crypto.config";
 import { DBConfig } from "./db.config";
 
-const configFactoryEnv = <T extends object>(cls: ClassConstructor<T>) => 
+export const configFactoryEnv = <T extends object>(cls: ClassConstructor<T>) => 
     function () {
         const transformedConfig = plainToInstance(
             cls,

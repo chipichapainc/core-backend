@@ -1,1 +1,0 @@
-export const TICKET_HASH_LENGTH = 106 // NEEDS DB UPDATE

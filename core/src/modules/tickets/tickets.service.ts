@@ -1,10 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TicketEntity } from './entities/ticket.entity';
 import { In, Repository } from 'typeorm';
 import { ICreateTicketParams, TCreateTicketProperties } from './types/create-ticket.interface';
 import { EventsService } from '../events/events.service';
-import { CodeGenerator, CodeGeneratorFactory } from '../code-generator/code-generator-factory';
+import { CodeGeneratorFactory } from '../code-generator/code-generator-factory';
 import { EventEntity } from '../events/entities/event.entity';
 import { CryptoService } from '../crypto/crypto.service';
 import { ConfigService } from '@nestjs/config';
@@ -24,8 +24,14 @@ export class TicketsService {
         private readonly configService: ConfigService<CryptoConfig>,
         @Inject(CodeGeneratorFactoryProvider.TICKETS)
         private readonly codeGeneratorFactory: CodeGeneratorFactory,
-        
     ) { }
+
+    // async onModuleInit() {
+    //     await this.createMany({
+    //         count: 2,
+    //         eventId: "5dd1f3ac-4b7a-495d-98a0-b4dee2b380fd"
+    //     })
+    // }
 
     async generateTicketCodesByEventId(eventId: string, n: number) {
         const event = await this.eventsService.findOneById(eventId)
