@@ -4,14 +4,28 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { dbConfig } from './db/typeorm-datasource';
 import { TicketsModule } from './modules/tickets/tickets.module';
 import { CryptoModule } from './modules/crypto/crypto.module';
+import { EventsModule } from './modules/events/events.module';
+import { CodeGeneratorModule } from './modules/code-generator/code-generator.module';
+import { ConfigModule } from '@nestjs/config';
+import { cryptoConfig } from './configs/crypto.config';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot(dbConfig),
-    TicketsModule,
-    CryptoModule,
-  ],
-  controllers: [AppController],
-  providers: [],
+    imports: [
+        ConfigModule.forRoot({
+            isGlobal: true,
+            load: [
+                cryptoConfig
+            ]
+        }),
+        CryptoModule,
+        CodeGeneratorModule,
+
+        TypeOrmModule.forRoot(dbConfig),
+
+        TicketsModule,
+        EventsModule,
+    ],
+    controllers: [AppController],
+    providers: [],
 })
-export class AppModule {}
+export class AppModule { }

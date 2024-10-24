@@ -2,10 +2,10 @@ import { Controller, Get } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  constructor() {}
+    constructor() {}
 
-  @Get('/health')
-  ping(): string {
-    return 'OK'
-  }
+    @Get('/health')
+    ping(): string {
+        return 'OK'
+    }
 }

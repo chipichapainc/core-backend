@@ -1,9 +1,12 @@
 import { TICKET_HASH_LENGTH } from 'src/constants';
+import { EventEntity } from 'src/modules/events/entities/event.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -21,7 +24,13 @@ export class TicketEntity {
 
   @Column({ type: "smallint", nullable: true })
   useMax: number;
-  
+
+  @ManyToOne(() => EventEntity)
+  @JoinColumn({ name: 'eventId' })
+  event: EventEntity;
+  @Column()
+  eventId: string;
+
   // Timestamps
   @CreateDateColumn()
   createdAt: Date;
