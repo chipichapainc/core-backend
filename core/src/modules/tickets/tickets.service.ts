@@ -4,7 +4,7 @@ import { TicketEntity } from './entities/ticket.entity';
 import { Repository } from 'typeorm';
 import { ICreateTicketParams, TCreateTicketProperties } from './types/create-ticket.interface';
 import { EventsService } from '../events/events.service';
-import { CodeGenerator } from '../code-generator/code-generator.service';
+import { CodeGenerator } from '../code-generator/code-generator';
 import { EventEntity } from '../events/entities/event.entity';
 import { CryptoService } from '../crypto/crypto.service';
 import { ConfigService } from '@nestjs/config';
@@ -31,7 +31,8 @@ export class TicketsService {
 
         const codes: string[] = []
         for (let i = 0; i < n; i++) {
-            codes.push(await generator.generate())
+            const code = await generator.generate()
+            codes.push(`${event.prefix}-${code}`)
         }   
 
         await this.eventsService.updateSeedById(event.id, generator.state)
@@ -46,10 +47,9 @@ export class TicketsService {
             event,
             params.count
         )
-        const codesWithPrefixes = codes.map(code => `${event.prefix}-${code}`)
         
         const ticketsProperties = await Promise.all(
-            codesWithPrefixes.map(async code => {
+            codes.map(async code => {
                 return {
                     id: code,
                     eventId: event.id,

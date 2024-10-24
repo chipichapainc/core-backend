@@ -1,4 +1,4 @@
-import { CodeGenerator } from "./code-generator.service";
+import { CodeGenerator } from "./code-generator";
 
 describe('CodeGenerator', () => {
     describe('code generation', () => {
