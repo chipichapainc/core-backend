@@ -31,6 +31,9 @@ export class TicketEntity {
   @Column()
   eventId: string;
 
+  @Column({ nullable: false, default: false })
+  isPaid: boolean;
+
   // Timestamps
   @CreateDateColumn()
   createdAt: Date;

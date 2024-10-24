@@ -22,13 +22,6 @@ export class TicketsService {
         private readonly configService: ConfigService
     ) { }
 
-    async onModuleInit() {
-        await this.createMany({
-            count: 10,
-            eventId: "5dd1f3ac-4b7a-495d-98a0-b4dee2b380fd"
-        })
-    }
-
     async generateTicketCodesByEventId(eventId: string, n: number) {
         const event = await this.eventsService.findOneById(eventId)
         return this.generateTicketCodes(event, n)
