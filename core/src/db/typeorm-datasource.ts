@@ -2,14 +2,17 @@ import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { DataSource, DataSourceOptions, Logger } from "typeorm";
 import 'dotenv/config'
 import { configFactoryEnv } from "src/configs/configs";
-import { DBConfig } from "src/configs/db.config";
+import { DatabaseEnvConfig } from "src/configs/db.config";
 
-const config = configFactoryEnv(DBConfig)()
+const config = configFactoryEnv(DatabaseEnvConfig)()
 
-// TODO: move all params to DBConfig
 export const dbConfig: TypeOrmModuleOptions = {
-  ...config,
   type: 'postgres',
+  host: config.DATABASE_HOST,
+  port: config.DATABASE_PORT,
+  username: config.DATABASE_USERNAME,
+  password: config.DATABASE_PASSWORD,
+  database: config.DATABASE_NAME,
   entities: [
     "dist/**/*.entity.js"
   ],

@@ -1,7 +1,7 @@
-import { Expose } from "class-transformer";
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { Expose, Transform } from "class-transformer";
+import { IsInt, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
-export class DBConfig {
+export class DatabaseEnvConfig {
     @Expose()
     @IsNotEmpty()
     @IsString()
@@ -9,8 +9,8 @@ export class DBConfig {
 
     @Expose()
     @IsOptional()
-    @IsString()
-    readonly DATABASE_PORT: string = "5432"
+    @IsInt()
+    readonly DATABASE_PORT: number = 5432
 
     @Expose()
     @IsOptional()

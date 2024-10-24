@@ -1,8 +1,8 @@
 import { ConfigFactory } from "@nestjs/config";
 import { ClassConstructor, plainToInstance } from "class-transformer";
 import { validateSync } from "class-validator";
-import { CryptoConfig } from "./crypto.config";
-import { DBConfig } from "./db.config";
+import { CryptoEnvConfig } from "./crypto.config";
+import { DatabaseEnvConfig } from "./db.config";
 
 export const configFactoryEnv = <T extends object>(cls: ClassConstructor<T>) => 
     function () {
@@ -25,6 +25,6 @@ export const configFactoryEnv = <T extends object>(cls: ClassConstructor<T>) =>
 
 
 export const CONFIGS: (ConfigFactory | Promise<ConfigFactory>)[] = [
-    configFactoryEnv(CryptoConfig),
-    configFactoryEnv(DBConfig),
+    configFactoryEnv(CryptoEnvConfig),
+    configFactoryEnv(DatabaseEnvConfig),
 ]

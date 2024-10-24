@@ -1,7 +1,7 @@
 import { Expose } from "class-transformer";
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class CryptoConfig {
+export class CryptoEnvConfig {
     @Expose()
     @IsNotEmpty()
     @IsString()

@@ -8,7 +8,7 @@ import { CodeGeneratorFactory } from '../code-generator/code-generator-factory';
 import { EventEntity } from '../events/entities/event.entity';
 import { CryptoService } from '../crypto/crypto.service';
 import { ConfigService } from '@nestjs/config';
-import { CryptoConfig } from 'src/configs/crypto.config';
+import { CryptoEnvConfig } from 'src/configs/crypto.config';
 import { CodeGeneratorFactoryProvider } from '../code-generator/code-generator.provider';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class TicketsService {
         @Inject(CryptoService)
         private readonly cryptoService: CryptoService,
         @Inject(ConfigService)
-        private readonly configService: ConfigService<CryptoConfig>,
+        private readonly configService: ConfigService<CryptoEnvConfig>,
         @Inject(CodeGeneratorFactoryProvider.TICKETS)
         private readonly codeGeneratorFactory: CodeGeneratorFactory,
     ) { }
