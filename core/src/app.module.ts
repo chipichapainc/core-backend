@@ -7,15 +7,13 @@ import { CryptoModule } from './modules/crypto/crypto.module';
 import { EventsModule } from './modules/events/events.module';
 import { CodeGeneratorModule } from './modules/code-generator/code-generator.module';
 import { ConfigModule } from '@nestjs/config';
-import { cryptoConfig } from './configs/crypto.config';
+import { CONFIGS } from './configs/configs';
 
 @Module({
     imports: [
         ConfigModule.forRoot({
             isGlobal: true,
-            load: [
-                cryptoConfig
-            ]
+            load: CONFIGS
         }),
         CryptoModule,
         CodeGeneratorModule,

@@ -20,7 +20,10 @@ export class EventsService {
         return event
     }
 
-    async updateSeedById(id: string, seed: number) {
-        return await this.eventsRepository.update({ id }, { codeSeed: seed })
+    async updateCodeSeedById(id: string, seed: number, uses: number) {
+        return await this.eventsRepository.update(
+            { id }, 
+            { codeSeed: seed, codesGenerated: uses }
+        )
     }
 }

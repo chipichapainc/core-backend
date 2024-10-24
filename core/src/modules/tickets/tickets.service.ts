@@ -4,10 +4,12 @@ import { TicketEntity } from './entities/ticket.entity';
 import { In, Repository } from 'typeorm';
 import { ICreateTicketParams, TCreateTicketProperties } from './types/create-ticket.interface';
 import { EventsService } from '../events/events.service';
-import { CodeGenerator } from '../code-generator/code-generator';
+import { CodeGenerator, CodeGeneratorFactory } from '../code-generator/code-generator-factory';
 import { EventEntity } from '../events/entities/event.entity';
 import { CryptoService } from '../crypto/crypto.service';
 import { ConfigService } from '@nestjs/config';
+import { CryptoConfig } from 'src/configs/crypto.config';
+import { CodeGeneratorFactoryProvider } from '../code-generator/code-generator.provider';
 
 @Injectable()
 export class TicketsService {
@@ -19,7 +21,10 @@ export class TicketsService {
         @Inject(CryptoService)
         private readonly cryptoService: CryptoService,
         @Inject(ConfigService)
-        private readonly configService: ConfigService
+        private readonly configService: ConfigService<CryptoConfig>,
+        @Inject(CodeGeneratorFactoryProvider.TICKETS)
+        private readonly codeGeneratorFactory: CodeGeneratorFactory,
+        
     ) { }
 
     async generateTicketCodesByEventId(eventId: string, n: number) {
@@ -27,7 +32,7 @@ export class TicketsService {
         return this.generateTicketCodes(event, n)
     }
     async generateTicketCodes(event: EventEntity, n: number) {
-        const generator = new CodeGenerator(event.codeSeed)
+        const generator = this.codeGeneratorFactory.make(event.codeSeed)
 
         const codes: string[] = []
         for (let i = 0; i < n; i++) {
@@ -35,7 +40,11 @@ export class TicketsService {
             codes.push(`${event.prefix}-${code}`)
         }   
 
-        await this.eventsService.updateSeedById(event.id, generator.state)
+        await this.eventsService.updateCodeSeedById(
+            event.id, 
+            generator.state,
+            generator.uses
+        )
 
         return codes
     }

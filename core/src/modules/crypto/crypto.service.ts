@@ -3,7 +3,6 @@ import { promisify } from 'util'
 import { createCipheriv, createDecipheriv, scrypt, randomFill, CipherKey } from 'node:crypto';
 import { BinaryLike } from 'crypto';
 
-// DISCLAIMER: I dont know what im doing
 // Before touching read - https://nodejs.org/api/crypto.html
 // After touching run - npm run test
 @Injectable()

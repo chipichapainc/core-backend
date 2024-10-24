@@ -25,6 +25,9 @@ export class EventEntity {
   @Generated('increment')
   @Column({ nullable: false, type: "bigint" })
   codeSeed: number
+  
+  @Column({ nullable: false, type: "bigint", default: 0 })
+  codesGenerated: number
 
   // Timestamps
   @CreateDateColumn()

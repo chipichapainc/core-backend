@@ -1,4 +1,6 @@
-import { TICKET_HASH_LENGTH } from 'src/constants';
+import { TICKET_HASH_LENGTH } from 'src/configs/constants';
+import { TicketsCodeGeneratorProvider } from 'src/modules/code-generator/code-generator.provider';
+import { CryptoService } from 'src/modules/crypto/crypto.service';
 import { EventEntity } from 'src/modules/events/entities/event.entity';
 import {
   Column,
@@ -16,7 +18,10 @@ export class TicketEntity {
   @PrimaryColumn()
   id: string;
 
-  @Column({ type: "char", length: TICKET_HASH_LENGTH, nullable: false })
+  @Column({ 
+    type: "varchar",
+    nullable: false 
+  })
   hash: string
 
   @Column({ type: "smallint", default: 0 })
