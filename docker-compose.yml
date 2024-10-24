@@ -9,8 +9,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      redis:
-        condition: service_healthy
     ports:
       - 8010:8080
     env_file: ./core/.env
@@ -30,17 +28,3 @@ services:
       timeout: 1s
       retries: 5
     env_file: ./db/.env
-  redis:
-    image: redis:6.2-alpine
-    container_name: core-cache
-    restart: always
-    ports:
-      - '8030:6379'
-    command: redis-server --save 20 1 --loglevel warning --requirepass helloworld
-    volumes:
-      - ./redis:/data
-    healthcheck:
-      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
-      interval: 10s
-      timeout: 1s
-      retries: 5

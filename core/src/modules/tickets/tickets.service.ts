@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TicketEntity } from './entities/ticket.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { ICreateTicketParams, TCreateTicketProperties } from './types/create-ticket.interface';
 import { EventsService } from '../events/events.service';
 import { CodeGenerator } from '../code-generator/code-generator';
@@ -48,6 +48,12 @@ export class TicketsService {
             params.count
         )
         
+        const duplicatesCount = await this.ticketsRepository.countBy({
+            id: In(codes)
+        })
+        if(duplicatesCount > 0)
+            throw new Error("Found duplicate ticket codes. Tickets not created.")
+
         const ticketsProperties = await Promise.all(
             codes.map(async code => {
                 return {

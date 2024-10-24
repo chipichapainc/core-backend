@@ -1,4 +1,6 @@
 // Read before changing - https://en.wikipedia.org/wiki/Linear_congruential_generator
+// If u changed availableChars or codeLength, 
+// also change A and C params, to prevent code duplicates
 export class CodeGenerator { 
     public state: number
 
