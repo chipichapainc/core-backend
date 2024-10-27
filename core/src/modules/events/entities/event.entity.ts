@@ -1,3 +1,4 @@
+import { ECurrency } from 'src/common/types/currency.enum';
 import {
   Column,
   CreateDateColumn,
@@ -21,6 +22,11 @@ export class EventEntity {
   @Index(EVENTS_PREFIX_INDEX, { unique: true })
   @Column({ nullable: false, unique: true })
   prefix: string
+
+  @Column({ nullable: false, type: "bigint" })
+  ticketPrice: number
+  @Column({ nullable: false, type: "enum", enum: ECurrency, default: ECurrency.UAH })
+  ticketPriceCurr: ECurrency
   
   @Generated('increment')
   @Column({ nullable: false, type: "bigint" })

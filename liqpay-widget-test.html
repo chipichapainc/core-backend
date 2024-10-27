@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiqPay Widget TEST</title>
+</head>
+
+<body>
+    <div>
+        <div>Картки для тестування</div>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 20%;"></th>
+                    <th scope="col" style="width: 65%;"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        4242424242424242</td>
+                    <td>Успішна
+                        оплата</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        4000000000003063</td>
+                    <td>Успішна
+                        оплата з 3DS</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        4000000000003089</td>
+                    <td>Успішна
+                        оплата з OTP</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        4000000000003055</td>
+                    <td>Успішна
+                        оплата з CVV</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        4000000000000002</td>
+                    <td>Не
+                        успішна оплата. Код помилки - limit</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        4000000000009995</td>
+                    <td>Не
+                        успішна оплата. Код помилки - 9859</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        sandbox_token</td>
+                    <td>Успішна
+                        оплата по токену</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="liqpay_checkout"></div>
+</body>
+<script src="https://static.liqpay.ua/libjs/checkout.js" async></script>
+<script>
+    window.LiqPayCheckoutCallback = function () {
+        LiqPayCheckout.init({
+            data: "eyJ2ZXJzaW9uIjozLCJwdWJsaWNfa2V5Ijoic2FuZGJveF9pMzg5MDA4MjAyNDUiLCJhY3Rpb24iOiJwYXkiLCJhbW91bnQiOjEwMCwiY3VycmVuY3kiOiJVQUgiLCJkZXNjcmlwdGlvbiI6IlRpY2tldCBwdXJjaGFzZSIsIm9yZGVyX2lkIjoiMzY3NDhhYjYtODEyMy00ZGUzLWI0Y2ItZTczYmM5ZDRiY2QyIiwibGFuZ3VhZ2UiOiJ1ayIsInNlcnZlcl91cmwiOiJodHRwczovL2ZvcmNpYmx5LW1lZXQtaWJleC5uZ3Jvay1mcmVlLmFwcC9hcGkvbGlxcGF5L3dlYmhvb2tzL3BheW1lbnQvZmluaXNoIn0=",
+            signature: "MoBNXtiVJwDuxpP7Io6mPWA1A8I=",
+            embedTo: "#liqpay_checkout",
+            language: "uk",
+            mode: "embed" // embed || popup
+        })
+            .on("liqpay.callback", function (data) {
+                console.log("CALLBACK:")
+                console.log(data.status);
+                console.log(data);
+            })
+            .on("liqpay.ready", function (data) {
+                console.log("READY")
+            })
+            .on("liqpay.close", function (data) {
+                console.log("CLOSE")
+            });
+    };
+</script>
+
+</html>

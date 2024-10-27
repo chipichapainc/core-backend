@@ -26,13 +26,6 @@ export class TicketsService {
         private readonly codeGeneratorFactory: CodeGeneratorFactory,
     ) { }
 
-    // async onModuleInit() {
-    //     await this.createMany({
-    //         count: 2,
-    //         eventId: "5dd1f3ac-4b7a-495d-98a0-b4dee2b380fd"
-    //     })
-    // }
-
     async generateTicketCodesByEventId(eventId: string, n: number) {
         const event = await this.eventsService.findOneById(eventId)
         return this.generateTicketCodes(event, n)
@@ -78,7 +71,8 @@ export class TicketsService {
                         this.configService.getOrThrow("TICKET_CODE_HASH_SECRET"), 
                         code
                     ),
-                    useMax: params.useLimit || 1
+                    useMax: params.useLimit || 1,
+                    isPaid: params.isPaid || false
                 } as TCreateTicketProperties
             })
         )

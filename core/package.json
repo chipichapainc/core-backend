@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "ts-node ./node_modules/typeorm/cli",
     "migrations:create": "npm run typeorm migration:create",
-    "migrations:generate": "npm run build && npm run typeorm migration:generate -- -d ./dist/db/typeorm-datasource.js ./src/db/migrations/NEW",
+    "migrations:generate": "npm run build && npm run typeorm migration:generate -- -d ./dist/db/typeorm-datasource.js ./src/db/migrations/Migration",
     "migrations:run": "npm run build && npm run typeorm migration:run -- -d ./dist/db/typeorm-datasource.js",
     "migrations:revert": "npm run build && npm run typeorm migration:revert -- -d ./dist/db/typeorm-datasource.js"
   },
@@ -33,6 +33,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
+    "liqpay-sdk-nodejs": "github:liqpay/sdk-nodejs",
     "pg": "^8.13.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
