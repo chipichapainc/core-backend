@@ -4,6 +4,7 @@ import { CryptoEnvConfig } from "./crypto.config";
 import { DatabaseEnvConfig } from "./db.config";
 import { LiqPayEnvConfig } from "./liqpay.config";
 import { validateClass } from "src/common/helpers/validate-class.helper";
+import { SmtpEnvConfig } from "./smtp.config";
 
 export const configFactoryEnv = <T extends object>(cls: ClassConstructor<T>) => 
     function() {
@@ -14,8 +15,7 @@ export const configFactoryEnv = <T extends object>(cls: ClassConstructor<T>) =>
         return instance
     }
 
-export const CONFIGS: (ConfigFactory | Promise<ConfigFactory>)[] = [
-    configFactoryEnv(CryptoEnvConfig),
-    configFactoryEnv(DatabaseEnvConfig),
-    configFactoryEnv(LiqPayEnvConfig)
-]
+export const liqpayEnvConfig = configFactoryEnv(LiqPayEnvConfig)
+export const cryptoEnvConfig = configFactoryEnv(CryptoEnvConfig)
+export const databaseEnvConfig = configFactoryEnv(DatabaseEnvConfig)
+export const smtpEnvConfig = configFactoryEnv(SmtpEnvConfig)

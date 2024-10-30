@@ -1,8 +1,9 @@
 import { FactoryProvider, Module } from '@nestjs/common';
 import { BrevoEmailsService } from './brevo.emails.service';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SmtpEnvConfig, SMTPProviders } from 'src/configs/smtp.config';
 import { EmailsService } from './emails.service';
+import { smtpEnvConfig } from 'src/configs/configs';
 
 const EmailsServiceProvider: FactoryProvider<EmailsService> = {
   provide: EmailsService,
@@ -18,7 +19,7 @@ const EmailsServiceProvider: FactoryProvider<EmailsService> = {
 };
 
 @Module({
-    imports: [],
+    imports: [ConfigModule.forFeature(smtpEnvConfig)],
     controllers: [],
     providers: [EmailsServiceProvider],
     exports: [EmailsService],

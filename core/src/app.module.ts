@@ -5,8 +5,6 @@ import { dbConfig } from './db/typeorm-datasource';
 import { CryptoModule } from './modules/crypto/crypto.module';
 import { EventsModule } from './modules/events/events.module';
 import { CodeGeneratorModule } from './modules/code-generator/code-generator.module';
-import { ConfigModule } from '@nestjs/config';
-import { CONFIGS } from './configs/configs';
 import { LiqPayModule } from './modules/liqpay/liqpay.module';
 import { TicketsModule } from './modules/tickets/tickets.module';
 import { OrdersModule } from './modules/orders/orders.module';
@@ -15,10 +13,6 @@ import { OrderPaymentsModule } from './modules/order-payments/order-payments.mod
 
 @Module({
     imports: [
-        ConfigModule.forRoot({
-            isGlobal: true,
-            load: CONFIGS
-        }),
         TypeOrmModule.forRoot(dbConfig),
         
         CryptoModule,
