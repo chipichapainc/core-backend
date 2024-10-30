@@ -10,6 +10,8 @@ import { CONFIGS } from './configs/configs';
 import { LiqPayModule } from './modules/liqpay/liqpay.module';
 import { TicketsModule } from './modules/tickets/tickets.module';
 import { OrdersModule } from './modules/orders/orders.module';
+import { EmailsModule } from './modules/emails/emails.module';
+import { OrderPaymentsModule } from './modules/order-payments/order-payments.module';
 
 @Module({
     imports: [
@@ -17,14 +19,16 @@ import { OrdersModule } from './modules/orders/orders.module';
             isGlobal: true,
             load: CONFIGS
         }),
+        TypeOrmModule.forRoot(dbConfig),
+        
         CryptoModule,
         CodeGeneratorModule,
         LiqPayModule,
+        EmailsModule,
 
-        TypeOrmModule.forRoot(dbConfig),
-
-        TicketsModule,
         OrdersModule,
+        OrderPaymentsModule,
+        TicketsModule,
         EventsModule,
     ],
     controllers: [AppController],

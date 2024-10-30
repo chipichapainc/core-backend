@@ -1,20 +1,20 @@
 import { Body, Controller, HttpCode, Inject, Logger, Post, UnauthorizedException } from "@nestjs/common";
-import { LiqPayService } from "../liqpay.service";
-import { LiqPayApiParams } from "../types/liqpay-api-params";
-import { ILiqPayApiParams } from "../types/liqpay-api-params.interface";
+import { LiqPayService } from "../../liqpay/liqpay.service";
+import { LiqPayApiParams } from "../../liqpay/types/liqpay-api-params";
+import { ILiqPayApiParams } from "../../liqpay/types/liqpay-api-params.interface";
 import { validateClass } from "src/common/helpers/validate-class.helper";
+import { ILiqPayCallback } from "../../liqpay/types/liqpay-callback.interface";
 import { OrdersService } from "src/modules/orders/orders.service";
-import { ILiqPayCallback } from "../types/liqpay-callback.interface";
 
 @Controller('liqpay/webhooks')
-export class LiqPayWebhooksController {
-    private readonly logger = new Logger(LiqPayWebhooksController.name)
+export class OrderPaymentsLiqPayWebhooksController {
+    private readonly logger = new Logger(OrderPaymentsLiqPayWebhooksController.name)
 
     constructor(
         @Inject(LiqPayService)
         private readonly liqpayService: LiqPayService,
         @Inject(OrdersService)
-        private readonly orderService: OrdersService,
+        private readonly ordersService: OrdersService,
     ) {}
 
     @HttpCode(200)
@@ -42,7 +42,7 @@ export class LiqPayWebhooksController {
         try {
             console.dir(data, { depth: 10 })
             if(data.status === "success") {
-                await this.orderService.finish(data.order_id)
+                await this.ordersService.finish(data.order_id)
             }
         } catch(e) {
             this.logger.error(e)
