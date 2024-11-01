@@ -11,9 +11,4 @@ export class LiqPayEnvConfig {
     @IsNotEmpty()
     @IsString()
     readonly LIQPAY_SECRET_KEY: string
-
-    @Expose()
-    @IsNotEmpty()
-    @IsString()
-    readonly DOMAIN: string
 }

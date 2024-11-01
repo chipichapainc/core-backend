@@ -6,6 +6,7 @@ import { ILiqPayData } from './types/liqpay-data.interface';
 import { LiqPayData } from './types/liqpay-data';
 import { validateClass } from 'src/common/helpers/validate-class.helper';
 import { ECurrency } from 'src/common/types/currency.enum';
+import { ApiEnvConfig } from 'src/configs/api.config';
 
 export type LiqPatDataEncoded = string
 
@@ -17,7 +18,9 @@ export class LiqPayService {
 
     constructor(
         @Inject(ConfigService)
-        private readonly configService: ConfigService<LiqPayEnvConfig>,
+        private readonly configService: ConfigService<
+            LiqPayEnvConfig & ApiEnvConfig
+        >,
     ) {
         try {
             this.liqpay = new LiqPay(

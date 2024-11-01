@@ -12,7 +12,8 @@ export class OrdersController {
     @Post('/')
     create(@Body() body: CreateOrderInput) {
         return this.ordersService.createOne({
-            eventId: body.eventId
+            eventId: body.eventId,
+            email: body.email
         })
     }
 }

@@ -15,6 +15,9 @@ export class OrderEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @Column({ nullable: false })
+  email: string
+
   @Column({ nullable: false, type: "bigint" })
   amount: number
   @Column({ nullable: false, type: "enum", enum: ECurrency, default: ECurrency.UAH })

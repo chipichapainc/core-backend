@@ -5,6 +5,8 @@ import { ILiqPayApiParams } from "../../liqpay/types/liqpay-api-params.interface
 import { validateClass } from "src/common/helpers/validate-class.helper";
 import { ILiqPayCallback } from "../../liqpay/types/liqpay-callback.interface";
 import { OrdersService } from "src/modules/orders/orders.service";
+import { QRCodesService } from "src/modules/qr-codes/qr-codes.service";
+import { EmailsService } from "src/modules/emails/emails.service";
 
 @Controller('liqpay/webhooks')
 export class OrderPaymentsLiqPayWebhooksController {
@@ -15,6 +17,10 @@ export class OrderPaymentsLiqPayWebhooksController {
         private readonly liqpayService: LiqPayService,
         @Inject(OrdersService)
         private readonly ordersService: OrdersService,
+        @Inject(QRCodesService)
+        private readonly QRCodesService: QRCodesService,
+        @Inject(EmailsService)
+        private readonly emailsService: EmailsService,
     ) {}
 
     @HttpCode(200)
@@ -42,7 +48,23 @@ export class OrderPaymentsLiqPayWebhooksController {
         try {
             console.dir(data, { depth: 10 })
             if(data.status === "success") {
-                await this.ordersService.finish(data.order_id)
+                const {
+                    order,
+                    tickets
+                } = await this.ordersService.finish(data.order_id);
+
+                const ticketsWithQRCodes = await Promise.all(
+                    tickets.map(
+                        async ticket => ({
+                            ticket,
+                            qr: await this.QRCodesService.generateTicketQR(ticket)
+                        })
+                    )
+                )
+                await this.emailsService.sendTicketEmail(
+                    order.email,
+                    ticketsWithQRCodes,
+                )
             }
         } catch(e) {
             this.logger.error(e)

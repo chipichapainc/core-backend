@@ -1,10 +1,15 @@
 import { Module } from '@nestjs/common';
 import { LiqPayService } from './liqpay.service';
 import { ConfigModule } from '@nestjs/config';
-import { liqpayEnvConfig } from 'src/configs/configs';
+import { apiEnvConfig, joinConfigs, liqpayEnvConfig } from 'src/configs/configs';
 
 @Module({
-    imports: [ConfigModule.forFeature(liqpayEnvConfig)],
+    imports: [
+        ConfigModule.forFeature(joinConfigs(
+            liqpayEnvConfig,
+            apiEnvConfig
+        ))
+    ],
     providers: [LiqPayService],
     exports: [LiqPayService]
 })

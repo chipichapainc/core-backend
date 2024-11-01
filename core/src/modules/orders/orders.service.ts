@@ -26,6 +26,7 @@ export class OrdersService {
             throw new NotFoundException("Event not found")
 
         const order = await this.orderRepository.save({
+            email: params.email,
             eventId: event.id,
             amount: event.ticketPrice,
             currency: event.ticketPriceCurr

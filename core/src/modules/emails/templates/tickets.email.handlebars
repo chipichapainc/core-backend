@@ -2,8 +2,10 @@
 <html>
 
 <body>
-    <h1>Your ticket:</h1>
-    <p>{{ticket.id}}</p>
+    <h1>Your tickets:</h1>
+    {{#each tickets}}
+        <p>{{id}}</p>
+    {{/each}}
 </body>
 
 </html>

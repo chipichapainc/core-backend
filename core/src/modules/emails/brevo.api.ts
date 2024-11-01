@@ -33,7 +33,7 @@ export class BrevoAPI {
             const { response, body } = await req;
             return body
         } catch(e) {
-            this.logger.error(response)
+            this.logger.error(response.json())
             throw e
         }
     }

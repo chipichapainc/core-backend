@@ -1,5 +1,5 @@
-import { TicketEntity } from "../tickets/entities/ticket.entity";
+import { TTicketEmailParams } from "./types/tickets-email-params.type";
 
 export abstract class EmailsService {
-    abstract sendTicketEmail(to: string, ticket: TicketEntity): Promise<void>
+    abstract sendTicketEmail(to: string, params: TTicketEmailParams): Promise<void>
 }

@@ -10,6 +10,7 @@ import { TicketsModule } from './modules/tickets/tickets.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { EmailsModule } from './modules/emails/emails.module';
 import { OrderPaymentsModule } from './modules/order-payments/order-payments.module';
+import { QRCodesModule } from './modules/qr-codes/qr-codes.module';
 
 @Module({
     imports: [
@@ -19,6 +20,7 @@ import { OrderPaymentsModule } from './modules/order-payments/order-payments.mod
         CodeGeneratorModule,
         LiqPayModule,
         EmailsModule,
+        QRCodesModule,
 
         OrdersModule,
         OrderPaymentsModule,
